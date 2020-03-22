@@ -1,0 +1,61 @@
+<html>
+    <%-
+        include('./components/app-head.ejs', {
+            title: data['conf.yaml'].title
+        })
+    %>
+
+    <style>
+        .title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+        }
+
+        .meta-row {
+            height: 35px;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.4);
+            margin-bottom: 20px;
+        }
+
+        .meta-row > div {
+            margin-right: 10px;
+        }
+
+        .category {
+            font-weight: 600;
+        }
+
+        .eta {
+            color: rgba(0, 0, 0, 0.3);
+        }
+
+        .markdown strong > img {
+            border: 1px solid rgba(0, 0, 0, 0.6);
+        }
+    </style>
+<body>
+    <div class="responsive-container stack" direction="column">
+        <% if (data['conf.yaml'].date) {%>
+            <div class="stack" direction="column">
+                <div class="title"><%= data['conf.yaml'].title %></div>
+                <div class="stack meta-row" vertical-layout="center">
+                    <div class="category"><%= data['conf.yaml'].category %></div>
+                    <div class="date">
+                        <%= this.utils.dayjs.unix(parseInt(data['conf.yaml'].date)).format("MMM D, YYYY") %>
+                    </div>
+                    <div class="eta"><%= Math.ceil(data['main.md'].match(/[\u00ff-\uffff]|\S+/g).length / 300) %> min</div>
+                </div>
+            </div>
+        <% } %>
+
+        <div class="markdown">
+            <%- data['main.md'] %>
+        </div>
+
+        <%-
+            include('./components/app-foot.ejs')
+        %>
+    </div>
+</body>
+</html>

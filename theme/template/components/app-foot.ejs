@@ -1,0 +1,15 @@
+<style>
+    .foot {
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+        padding: 20px 0;
+
+        color: rgba(0, 0, 0, 0.4);
+
+        font-size: 0.8rem;
+    }
+</style>
+
+<div class="stack foot" horizontal-layout="center">
+    © <%= this.globalData.site.name %> <%= (new Date()).getUTCFullYear() %>. Last Updated: <%= this.utils.dayjs(new Date()).format("MMM D, YYYY") %>
+</stack>

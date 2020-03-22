@@ -1,0 +1,93 @@
+<html>
+    <%-
+        include('./components/app-head.ejs', {
+            title: data.sourcePath.split('/').pop()
+        })
+    %>
+
+    <style>
+        .nav-bar {
+            margin: 20px 0 50px 0;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .title a {
+            color: black;
+        }
+
+        .article-item {
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px dashed rgba(0, 0, 0, 0.4);
+        }
+
+        .article-item:nth-last-child(1) {
+            border-bottom: none;
+        }
+
+        .article-item > a {
+            text-decoration: underline;
+        }
+
+        .article-item > .title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .meta-row {
+            height: 35px;
+        }
+
+        .meta-row > div {
+            margin-right: 10px;
+        }
+
+        .category {
+            font-weight: 600;
+        }
+
+        .eta {
+            color: rgba(0, 0, 0, 0.3);
+        }
+    </style>
+<body>
+    <div class="stack responsive-container" direction="column">
+        <div class="nav-bar">
+            🏠&nbsp;<%= this.globalData.site.name %>
+        </div>
+
+        <div class="stack" direction="column">
+            <% data.children.forEach((v, i) => { %>
+                <% if (!v['conf.yaml'].hide) { %>
+                    <div class="article-item">
+                        <div class="title">
+                            <a href="<%= data.sourcePath + '/' + v.name %>" target="_blank">
+                                <%= v['conf.yaml'].title %>
+                            </a>
+                        </div>
+
+                        <div class="markdown abstract">
+                            <%- v['main.md'].split('<!-- more -->')[0] %>
+                        </div>
+                        <!-- ${index}: ${JSON.stringify(child)} -->
+
+                        <div class="stack meta-row" vertical-layout="center">
+                            <div class="category"><%= v['conf.yaml'].category %></div>
+                            <div class="date">
+                                <%= this.utils.dayjs.unix(parseInt(v['conf.yaml'].date)).format("MMM D, YYYY") %>
+                            </div>
+                            <div class="eta"><%= Math.ceil(v['main.md'].match(/[\u00ff-\uffff]|\S+/g).length / 300) %> min</div>
+                        </div>
+                    </div>
+                <% } %>
+            <% }) %>
+        </div>
+
+        <%-
+            include('./components/app-foot.ejs')
+        %>
+    </div>
+</body>
+</html>

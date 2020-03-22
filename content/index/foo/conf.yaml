@@ -1,0 +1,5 @@
+template:  markdown.ejs
+title: Foo
+date: 1584048283
+category: foo
+pin: true

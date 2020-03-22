@@ -1,0 +1,5 @@
+template:  markdown.ejs
+title: Bar
+date: 1584913545
+category: bar
+pin: true
