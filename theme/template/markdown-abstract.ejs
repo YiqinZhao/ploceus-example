@@ -1,7 +1,7 @@
 <html>
     <%-
         include('./components/app-head.ejs', {
-            title: data.sourcePath.split('/').pop()
+            title: config.page.title
         })
     %>
 
@@ -55,7 +55,7 @@
 <body>
     <div class="stack responsive-container" direction="column">
         <div class="nav-bar">
-            🏠&nbsp;<%= this.globalData.site.name %>
+            🏠&nbsp;<%= config.site.name %>
         </div>
 
         <div class="stack" direction="column">

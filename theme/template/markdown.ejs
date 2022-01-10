@@ -1,7 +1,7 @@
 <html>
     <%-
         include('./components/app-head.ejs', {
-            title: data['conf.yaml'].title
+            title: config.page.title
         })
     %>
 
@@ -36,21 +36,21 @@
     </style>
 <body>
     <div class="responsive-container stack" direction="column">
-        <% if (data['conf.yaml'].date) {%>
+        <% if (config.page.date) {%>
             <div class="stack" direction="column">
-                <div class="title"><%= data['conf.yaml'].title %></div>
+                <div class="title"><%= config.page.title %></div>
                 <div class="stack meta-row" vertical-layout="center">
-                    <div class="category"><%= data['conf.yaml'].category %></div>
+                    <div class="category"><%= config.page.category %></div>
                     <div class="date">
-                        <%= this.utils.dayjs.unix(parseInt(data['conf.yaml'].date)).format("MMM D, YYYY") %>
+                        <%= this.utils.dayjs.unix(parseInt(config.page.date)).format("MMM D, YYYY") %>
                     </div>
-                    <div class="eta"><%= Math.ceil(data['main.md'].match(/[\u00ff-\uffff]|\S+/g).length / 300) %> min</div>
+                    <div class="eta"><%= Math.ceil(data['main.md'].content.match(/[\u00ff-\uffff]|\S+/g).length / 300) %> min</div>
                 </div>
             </div>
         <% } %>
 
         <div class="markdown">
-            <%- data['main.md'] %>
+            <%- data['main.md'].content %>
         </div>
 
         <%-
